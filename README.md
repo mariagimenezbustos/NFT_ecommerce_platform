@@ -1,6 +1,10 @@
 # NFT e-Commerce App
 
-This MVP is an e-commerce app that sells NFTs.
+This full-stack MVP is an NFT online store that allows the user purchase fashion NFTs, get to know about the brands, as well get in contact with the NFT store. The user can also register and log in, and keep track of their orders in their user space. The NFT e-commerce app was a group project.
+
+## Demonstration
+
+https://github.com/mariagimenezbustos/NFT_ecommerce_platform/assets/134734638/d47769a6-f7b3-4dde-b1f3-e7be0d2403a8
 
 ## Setup
 
