@@ -34,7 +34,7 @@ export default function Profile() {
   return (
     <>
       <div className="logout">
-        <Link to="/Home" onClick={logout}>
+        <Link to="/" onClick={logout}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="40px"
@@ -74,9 +74,6 @@ export default function Profile() {
       {user && (
         <div>
           <h3>Welcome back {user.firstname}!</h3>
-
-          <p>User: {user.email}'s profile</p>
-
 
           <div>
             <Link to="/Orders">Orders</Link>

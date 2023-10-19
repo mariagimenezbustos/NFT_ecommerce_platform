@@ -74,7 +74,7 @@ function App() {
           {/* general route with content that's displayed on all pages */}
           <Route path="/" element={<NFT />}>
             {/* all page routes go here */}
-            <Route path="/Home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/Shop" element={<Shop />} />
             <Route path="/Shop/:id" element={<Product />} />
             <Route path="/Brands" element={<Brands />} />

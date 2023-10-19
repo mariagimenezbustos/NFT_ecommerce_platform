@@ -9,12 +9,23 @@ export default function CartLogin() {
 
   const { cartItems } = useContext(CartContext);
 
-  const [credentials, setCredentials] = useState({
+  const [credentialsLogin, setCredentialsLogin] = useState({
+    email: "",
+    password: ""
+  });
+
+  const [credentialsRegister, setCredentialsRegister] = useState({
     firstname: "",
     lastname: "",
     email: "",
     password: "",
-    marketing: false,
+    marketing: false
+  });
+
+  const [credentialsGuest, setCredentialsGuest] = useState({
+    firstname: "",
+    lastname: "",
+    email: ""
   });
 
   const redirectPayment = async () => {
@@ -39,54 +50,69 @@ export default function CartLogin() {
     }
   };
 
-  const login = async (e) => {
+  const handleChangeLogin = (e) => {
     e.preventDefault();
-    auth.login(credentials, redirectPayment);
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setCredentialsLogin({ ...credentialsLogin, [name]: value });
   };
 
-  const handleChange = (e) => {
+  const handleChangeRegister = (e) => {
     e.preventDefault();
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
 
-    setCredentials({ ...credentials, [name]: value });
+    setCredentialsRegister({ ...credentialsRegister, [name]: value });
+  };
+
+  const handleChangeGuest = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setCredentialsGuest({ ...credentialsGuest, [name]: value });
+  };
+
+  const login = async (e) => {
+    e.preventDefault();
+    auth.login(credentialsLogin, redirectPayment);
   };
 
   const register = async (e) => {
     e.preventDefault();
     try {
-      console.log(credentials);
+      console.log(credentialsRegister);
       const { data } = await axios("/api/auth/register", {
         method: "POST",
-        data: credentials,
+        data: credentialsRegister,
       });
       console.log(data.message);
-      setCredentials(data.message);
-      console.log(credentials);
-      redirectPayment();
+      setCredentialsRegister(data.message);
+      auth.login(credentialsRegister, redirectPayment);
     } catch (error) {
       console.log(error);
       setData(error.message);
     }
   };
 
-  const guest = async (e) => {
-    e.preventDefault();
-    try {
-      console.log(credentials);
-      const { data } = await axios("/api/auth/guest", {
-        method: "POST",
-        data: credentials,
-      });
-      console.log(data.message);
-      setCredentials(data.message);
-      redirectPayment();
-    } catch (error) {
-      console.log(error);
-      setData(error.message);
-    }
-  };
+  // const guest = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     console.log(credentialsGuest);
+  //     const { data } = await axios("/api/auth/guest", {
+  //       method: "POST",
+  //       data: credentialsGuest,
+  //     });
+  //     console.log(data.message);
+  //     setCredentialsGuest(data.message);
+  //     auth.login(credentialsGuest, redirectPayment);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setData(error.message);
+  //   }
+  // };
 
   return (
     <>
@@ -101,8 +127,8 @@ export default function CartLogin() {
               <label>
                 Email
                 <input
-                  value={credentials.email}
-                  onChange={handleChange}
+                  value={credentialsLogin.email}
+                  onChange={handleChangeLogin}
                   name="email"
                   type="text"
                 />
@@ -111,8 +137,8 @@ export default function CartLogin() {
               <label>
                 Password
                 <input
-                  value={credentials.password}
-                  onChange={handleChange}
+                  value={credentialsLogin.password}
+                  onChange={handleChangeLogin}
                   name="password"
                   type="password"
                 />
@@ -128,8 +154,8 @@ export default function CartLogin() {
             <label>
               Firstname
               <input
-                value={credentials.firstname}
-                onChange={handleChange}
+                value={credentialsRegister.firstname}
+                onChange={handleChangeRegister}
                 name="firstname"
                 type="text"
               />
@@ -138,8 +164,8 @@ export default function CartLogin() {
             <label>
               Lastname
               <input
-                value={credentials.lastname}
-                onChange={handleChange}
+                value={credentialsRegister.lastname}
+                onChange={handleChangeRegister}
                 name="lastname"
                 type="text"
               />
@@ -148,8 +174,8 @@ export default function CartLogin() {
             <label>
               Email
               <input
-                value={credentials.email}
-                onChange={handleChange}
+                value={credentialsRegister.email}
+                onChange={handleChangeRegister}
                 name="email"
                 type="text"
               />
@@ -158,8 +184,8 @@ export default function CartLogin() {
             <label>
               Password
               <input
-                value={credentials.password}
-                onChange={handleChange}
+                value={credentialsRegister.password}
+                onChange={handleChangeRegister}
                 name="password"
                 type="password"
               />
@@ -168,8 +194,8 @@ export default function CartLogin() {
             <label>
               I want to receive news via email
               <input
-                checked={credentials.marketing}
-                onChange={handleChange}
+                checked={credentialsRegister.marketing}
+                onChange={handleChangeRegister}
                 name="marketing"
                 type="checkbox"
                 className="checkbox"
@@ -179,14 +205,14 @@ export default function CartLogin() {
             <button>Register</button>
           </form>
 
-          <form id="guestForm" onSubmit={guest}>
+          {/* <form id="guestForm" onSubmit={guest}>
             <h2>I don't want to become a user...</h2>
 
             <label>
               Firstname
               <input
-                value={credentials.firstname}
-                onChange={handleChange}
+                value={credentialsGuest.firstname}
+                onChange={handleChangeGuest}
                 name="firstname"
                 type="text"
               />
@@ -195,8 +221,8 @@ export default function CartLogin() {
             <label>
               Lastname
               <input
-                value={credentials.lastname}
-                onChange={handleChange}
+                value={credentialsGuest.lastname}
+                onChange={handleChangeGuest}
                 name="lastname"
                 type="text"
               />
@@ -205,15 +231,15 @@ export default function CartLogin() {
             <label>
               Email
               <input
-                value={credentials.email}
-                onChange={handleChange}
+                value={credentialsGuest.email}
+                onChange={handleChangeGuest}
                 name="email"
                 type="text"
               />
             </label>
 
             <button>Continue as guest</button>
-          </form>
+          </form> */}
         </div>
       )}
     </>
