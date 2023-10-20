@@ -2,6 +2,10 @@
 
 This full-stack MVP is an NFT online store that allows the user purchase fashion NFTs, get to know about the brands, as well get in contact with the NFT store. The user can also register and log in, and keep track of their orders in their user space. The NFT e-commerce app was a group project. Play with the deployed NFT store here: [Heroku App](https://still-atoll-25533-7804280e1160.herokuapp.com/).
 
+## Demo
+
+https://github.com/mariagimenezbustos/NFT_ecommerce_platform/assets/134734638/0fec211a-d04b-407c-a810-3cb589cead64
+
 ## Built With
 
 - React (^18.2.0)
